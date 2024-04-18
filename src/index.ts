@@ -10,6 +10,7 @@ import {
   type ExtensionContext,
   type LanguageClientOptions,
   type ServerOptions,
+  type StaticFeature,
 } from 'coc.nvim';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -32,6 +33,16 @@ const documentSelector: DocumentSelector = [
     language: 'python',
   },
 ];
+
+class PyrightExtensionFeature implements StaticFeature {
+  dispose(): void {}
+  initialize() {}
+  fillClientCapabilities(capabilities: any) {
+    // Pyright set activeParameter = -1 when activeParameterSupport enabled
+    // this will break signatureHelp
+    capabilities.textDocument.signatureHelp.signatureInformation.activeParameterSupport = false;
+  }
+}
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const pyrightCfg = workspace.getConfiguration('basedpyright');
@@ -58,14 +69,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     },
   };
 
-  const disabledFeatures: string[] = [];
-  if (pyrightCfg.get<boolean>('disableCompletion')) {
-    disabledFeatures.push('completion');
-  }
-  if (pyrightCfg.get<boolean>('disableDiagnostics')) {
-    disabledFeatures.push('diagnostics');
-  }
-  const outputChannel = window.createOutputChannel('Pyright');
+  const outputChannel = window.createOutputChannel('Basedpyright');
   const pythonSettings = PythonSettings.getInstance();
   outputChannel.appendLine(`Workspace: ${workspace.root}`);
   outputChannel.appendLine(`Using python from ${pythonSettings.pythonPath}\n`);
@@ -75,7 +79,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
       configurationSection: ['python', 'pyright', 'basedpyright'],
     },
     outputChannel,
-    disabledFeatures,
     middleware: {
       workspace: {
         configuration,
@@ -94,6 +97,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     serverOptions,
     clientOptions,
   );
+  client.registerFeature(new PyrightExtensionFeature());
   context.subscriptions.push(services.registerLanguageClient(client));
 
   const textEditorCommands = ['basedpyright.organizeimports', 'basedpyright.addoptionalforparam'];

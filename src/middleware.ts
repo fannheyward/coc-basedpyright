@@ -42,33 +42,11 @@ export function configuration(params: ConfigurationParams, token: CancellationTo
     const custom = () => {
       const config = toJSONObject(workspace.getConfiguration(pythonItem.section, pythonItem.scopeUri));
       config.pythonPath = PythonSettings.getInstance().pythonPath;
-
-      // expand relative path
-      const analysis = config.analysis;
-      analysis.stubPath = workspace.expand(analysis.stubPath as string);
-      const inspect = workspace.getConfiguration('python.analysis').inspect('stubPath');
-      if (
-        inspect &&
-        (inspect.globalValue === undefined ||
-          inspect.workspaceValue === undefined ||
-          inspect.workspaceFolderValue === undefined)
-      ) {
-        analysis.stubPath = undefined;
-      }
-      const extraPaths = analysis.extraPaths as string[];
-      if (extraPaths?.length) {
-        analysis.extraPaths = extraPaths.map((p) => workspace.expand(p));
-      }
-      const typeshedPaths = analysis.typeshedPaths as string[];
-      if (typeshedPaths?.length) {
-        analysis.typeshedPaths = typeshedPaths.map((p) => workspace.expand(p));
-      }
-      config.analysis = analysis;
       return [config];
     };
     return custom();
   }
-  const analysisItem = params.items.find((x) => x.section === 'python.analysis');
+  const analysisItem = params.items.find((x) => x.section === 'basedpyright.analysis');
   if (analysisItem) {
     const custom = () => {
       const analysis = toJSONObject(workspace.getConfiguration(analysisItem.section, analysisItem.scopeUri));

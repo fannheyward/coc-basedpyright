@@ -285,6 +285,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "unused",
                 "information",
                 "warning",
                 "error",
@@ -301,6 +302,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "unused",
                 "information",
                 "warning",
                 "error",
@@ -317,6 +319,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "unused",
                 "information",
                 "warning",
                 "error",
@@ -333,6 +336,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "unused",
                 "information",
                 "warning",
                 "error",
@@ -781,6 +785,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "deprecated",
                 "information",
                 "warning",
                 "error",
@@ -829,6 +834,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "deprecated",
                 "information",
                 "warning",
                 "error",
@@ -1357,6 +1363,7 @@
               "default": "error",
               "enum": [
                 "none",
+                "unreachable",
                 "information",
                 "warning",
                 "error",
@@ -1453,6 +1460,7 @@
               "default": "none",
               "enum": [
                 "none",
+                "unreachable",
                 "information",
                 "warning",
                 "error",
@@ -1539,6 +1547,39 @@
                 true,
                 false
               ]
+            },
+            "reportUnsafeMultipleInheritance": {
+              "type": [
+                "string",
+                "boolean"
+              ],
+              "description": "Diagnostics for multiple inheritance where a base class's constructor may not get called",
+              "default": "none",
+              "enum": [
+                "none",
+                "information",
+                "warning",
+                "error",
+                true,
+                false
+              ]
+            },
+            "reportUnusedParameter": {
+              "type": [
+                "string",
+                "boolean"
+              ],
+              "description": "Diagnostics for unused function parameters",
+              "default": "unused",
+              "enum": [
+                "none",
+                "unused",
+                "information",
+                "warning",
+                "error",
+                true,
+                false
+              ]
             }
           }
         },
@@ -1609,6 +1650,16 @@
           "type": "string",
           "default": "",
           "description": "Path to folder with a list of Virtual Environments.",
+          "scope": "resource"
+        },
+        "basedpyright.importStrategy": {
+          "type": "string",
+          "default": "fromEnvironment",
+          "enum": [
+            "fromEnvironment",
+            "useBundled"
+          ],
+          "description": "Whether to use the version of pyright installed in the project (recommended) or the one bundled with the extension (not recommended).",
           "scope": "resource"
         },
         "basedpyright.trace.server": {

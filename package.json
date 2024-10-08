@@ -1,6 +1,6 @@
 {
   "name": "coc-basedpyright",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "description": "Basedpyright(fork of Pyright) extension for coc.nvim",
   "author": "Heyward Fann <fannheyward@gmail.com>",
   "license": "MIT",
@@ -35,12 +35,12 @@
     "prepare": "node esbuild.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "^1.9.3",
     "@types/node": "16",
     "@types/which": "^3.0.4",
     "coc.nvim": "^0.0.83-next.18",
     "esbuild": "^0.24.0",
-    "typescript": "^5.5.4",
+    "typescript": "^5.6.2",
     "which": "^4.0.0"
   },
   "contributes": {
@@ -1699,6 +1699,6 @@
     ]
   },
   "dependencies": {
-    "basedpyright": "^1.17.3"
+    "basedpyright": "^1.18.3"
   }
 }

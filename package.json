@@ -1,6 +1,6 @@
 {
   "name": "coc-basedpyright",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "description": "Basedpyright(fork of Pyright) extension for coc.nvim",
   "author": "Heyward Fann <fannheyward@gmail.com>",
   "license": "MIT",
@@ -1596,10 +1596,11 @@
         },
         "basedpyright.analysis.typeCheckingMode": {
           "type": "string",
-          "default": "all",
+          "default": "recommended",
           "enum": [
             "off",
             "basic",
+            "recommended",
             "standard",
             "strict",
             "all"
@@ -1699,6 +1700,6 @@
     ]
   },
   "dependencies": {
-    "basedpyright": "^1.18.3"
+    "basedpyright": "^1.19.0"
   }
 }

@@ -29,12 +29,11 @@ export class PythonSettings implements IPythonSettings {
       PythonSettings.pythonSettings.set(workspaceFolderKey, settings);
       return settings;
     }
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    // biome-ignore lint/style/noNonNullAssertion: x
     return PythonSettings.pythonSettings.get(workspaceFolderKey)!;
   }
 
   public static dispose() {
-    // biome-ignore lint/complexity/noForEach: <explanation>
     PythonSettings.pythonSettings.forEach((item) => item.dispose());
     PythonSettings.pythonSettings.clear();
   }
@@ -136,7 +135,7 @@ export class PythonSettings implements IPythonSettings {
     }
     try {
       this._pythonPath = getPythonExecutable(value);
-    } catch (ex) {
+    } catch (_ex) {
       this._pythonPath = value;
     }
   }
@@ -183,7 +182,7 @@ function getPythonExecutable(val: string): string {
 function isValidPythonPath(pythonPath: string): boolean {
   try {
     return child_process.spawnSync(pythonPath, ['-c', 'print(1234)'], { encoding: 'utf8' }).stdout.startsWith('1234');
-  } catch (ex) {
+  } catch (_ex) {
     return false;
   }
 }

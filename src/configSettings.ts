@@ -34,7 +34,9 @@ export class PythonSettings implements IPythonSettings {
   }
 
   public static dispose() {
-    PythonSettings.pythonSettings.forEach((item) => item.dispose());
+    for (const item of PythonSettings.pythonSettings) {
+      item[1].dispose();
+    }
     PythonSettings.pythonSettings.clear();
   }
 

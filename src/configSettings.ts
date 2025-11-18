@@ -10,6 +10,7 @@ interface IPythonSettings {
 
 export class PythonSettings implements IPythonSettings {
   private workspaceRoot: string;
+  // biome-ignore lint/correctness/noUnusedPrivateClassMembers: x
   private static pythonSettings: Map<string, PythonSettings> = new Map<string, PythonSettings>();
 
   private disposables: Disposable[] = [];
